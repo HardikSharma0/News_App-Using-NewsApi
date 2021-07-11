@@ -42,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
               SizedBox(
                 height: 50,
               ),
-              Image.network(Constant.news_image_url),
+              Image.network(Constants.newsImageUrl),
               Text(
                 'Powered by Hardik Sharma',
                 style: TextStyle(

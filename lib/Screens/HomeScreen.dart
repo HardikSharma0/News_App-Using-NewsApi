@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:newsapp/widgets/customdrawer.dart';
 import '../models/news.dart';
 import '../utils/server.dart';
 import '../Screens/detailedNews.dart';
+import '../utils/constants.dart';
 
 class NewsHeadlines extends StatefulWidget {
   @override
@@ -47,7 +49,7 @@ class _NewsHeadlinesState extends State<NewsHeadlines> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(),
+      drawer: CustomDrawer(),
       backgroundColor: Colors.white70,
       appBar: AppBar(
         backgroundColor: Colors.white70,
@@ -73,29 +75,29 @@ class _NewsHeadlinesState extends State<NewsHeadlines> {
               snapshot.connectionState == ConnectionState.done) {
             // print(
             //     "|||||||snapshot has data|||| ${snapshot.data.data['articles']}");
-            dynamic articles = snapshot.data.data['articles'];
+            // dynamic articles = snapshot.data.data['articles'];
             return ListView.builder(
-              itemCount: articles.length,
+              itemCount: news.length,
               itemBuilder: (BuildContext context, int index) {
                 return Card(
                   elevation: 5,
                   margin: EdgeInsets.all(6),
                   child: ListTile(
                     onTap: () {
-                      showDetailedNews(articles[index]['title']);
+                      showDetailedNews(news[index].title);
                     },
-                    title: Text(articles[index]['title'] == null
+                    title: Text(news[index].title == null
                         ? 'No News Available'
-                        : articles[index]['title']),
-                    leading: articles[index]['urlToImage'] == null
-                        ? Image.asset('ina.jpg')
+                        : news[index].title),
+                    leading: news[index].urlToImage == null
+                        ? Image.asset(Constants.imageNotAvailable)
                         : Image.network(
-                            articles[index]['urlToImage'],
+                            news[index].urlToImage,
                             fit: BoxFit.fill,
                           ),
-                    subtitle: Text(articles[index]['publishedAt'] == null
+                    subtitle: Text(news[index].publishedDt == null
                         ? ''
-                        : articles[index]['publishedAt']),
+                        : news[index].publishedDt),
                   ),
                 );
               },
